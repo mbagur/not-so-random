@@ -1,0 +1,29 @@
+{
+  "name": "not-so-random",
+  "version": "0.1.0",
+  "description": "Library that allow applying rules to extract random items of an array",
+  "main": "lib/notSoRandom.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbagur/not-so-random.git"
+  },
+  "keywords": [
+    "javascript",
+    "random"
+  ],
+  "author": "Michael Bagur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbagur/not-so-random/issues"
+  },
+  "homepage": "https://github.com/mbagur/not-so-random#readme",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "webpack": "^1.13.2"
+  }
+}

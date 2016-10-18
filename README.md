@@ -4,7 +4,7 @@ Lib allowing to use rules to configuration the extraction of random members of a
 ## Usage example
 
 ```javascript
-import {extractMembers} from 'not-so-random';
+import notSoRandom from 'not-so-random';
 
 var data = [
     { "name": "Stewie", "show": "Family Guy" },
@@ -33,7 +33,7 @@ var rules = [
 
 // Will generate an array with 2 characters from the
 // Simpsons and 3 from Family Guy
-var randomCharacters = extractMembers(data, rules);
+var randomCharacters = notSoRandom(data, rules);
 ```
 
 ## Why is it cool ?
@@ -74,8 +74,7 @@ determines in which order to run the rules to find a possible extraction.
 
 ## Work In progress
 
-This project is very very young and I still have a lot of things to do.
-
-+ Build the lib to be usable in commonJS / browser
+This project is still Work In progress
+TODO :
 + unit testing
-+ Doc
++ Docs

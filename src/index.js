@@ -105,4 +105,4 @@ function extractMembers(data, rules) {
     return extract(data, rules);
 }
 
-module.exports = extractMembers;
+export default extractMembers;
