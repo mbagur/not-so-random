@@ -101,6 +101,8 @@ function extract(data, rules) {
  * @return array        randomly extracted members of data parameter
  */
 function extractMembers(data, rules) {
+    rulesContext = {};
+    order = [];
     prepare(data, rules);
     return extract(data, rules);
 }
