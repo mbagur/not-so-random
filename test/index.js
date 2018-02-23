@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var notSoRandom = require('../lib/notSoRandom.js').default;
 
 var data = require('./data/data1.json');
+var emptyData = require('./data/empty.json');
 
 describe('not-so-random', function() {
     it('should return A or F', function() {
@@ -36,5 +37,14 @@ describe('not-so-random', function() {
         ];
         var f = function() { notSoRandom(data, rules); }
         expect(f).to.throw(Error);
+    })
+
+    it('should fail too', function() {
+
+      var rules = [
+        { count: 2, test: function(e) { return e.score == 8}}
+      ];
+      var f = function() { notSoRandom(emptyData, rules); }
+      expect(f).to.throw(Error);
     })
 });

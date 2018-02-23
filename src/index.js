@@ -18,72 +18,77 @@ var order = [];
  * @return Array  arr1 - arr2
  */
 function arraySubtract(arr1, arr2) {
-    return arr1.filter(function(elt) {
-        return arr2.indexOf(elt) < 0;
-    })
+  return arr1.filter(function(elt) {
+    return arr2.indexOf(elt) < 0;
+  });
 }
 
 function prepare(data, rules) {
-    for(var i=0;i<rules.length;++i) {
-        var possibles = data.filter(rules[i].test);
-        rulesContext[i] = {
-            possibles: possibles,
-            exclusives: possibles,
-            count: rules[i].count
-        };
-    }
+  for (var i = 0; i < rules.length; ++i) {
+    var possibles = data.filter(rules[i].test);
+    rulesContext[i] = {
+      possibles: possibles,
+      exclusives: possibles,
+      count: rules[i].count,
+    };
+  }
 
-    for(var i=0;i<rules.length;++i) {
-        for(var j=0;j<rules.length;++j) {
-            if (i!=j) {
-                rulesContext[i].exclusives = arraySubtract(
-                    rulesContext[i].exclusives,
-                    rulesContext[j].possibles
-                );
-            }
-        }
-        rulesContext[i].trustScore =
-            rulesContext[i].exclusives.length - rulesContext[i].count;
-        if(order.length==0 || order[0].trustScore >= rulesContext[i].trustScore) {
-            order.splice(0, 0, {i: i, trustScore: rulesContext[i].trustScore});
-        } else if( order[order.length-1].trustScore <= rulesContext[i].trustScore) {
-            order.push({i: i, trustScore: rulesContext[i].trustScore});
-        } else {
-            for(var k=0;k<order.length-1;k++) {
-                if(
-                    order[k].trustScore <= rulesContext[i].trustScore &&
-                    order[k+1].trustScore >= rulesContext[i].trustScore
-                ) {
-                    order.splice(k, 0, {i: i, trustScore: rulesContext[i].trustScore});
-                    break;
-                }
-            }
-        }
+  for (var i = 0; i < rules.length; ++i) {
+    for (var j = 0; j < rules.length; ++j) {
+      if (i != j) {
+        rulesContext[i].exclusives = arraySubtract(
+          rulesContext[i].exclusives,
+          rulesContext[j].possibles
+        );
+      }
     }
+    rulesContext[i].trustScore =
+      rulesContext[i].exclusives.length - rulesContext[i].count;
+    if (
+      order.length == 0 ||
+      order[0].trustScore >= rulesContext[i].trustScore
+    ) {
+      order.splice(0, 0, { i: i, trustScore: rulesContext[i].trustScore });
+    } else if (
+      order[order.length - 1].trustScore <= rulesContext[i].trustScore
+    ) {
+      order.push({ i: i, trustScore: rulesContext[i].trustScore });
+    } else {
+      for (var k = 0; k < order.length - 1; k++) {
+        if (
+          order[k].trustScore <= rulesContext[i].trustScore &&
+          order[k + 1].trustScore >= rulesContext[i].trustScore
+        ) {
+          order.splice(k, 0, { i: i, trustScore: rulesContext[i].trustScore });
+          break;
+        }
+      }
+    }
+  }
 }
 
 function extract(data, rules) {
-    var extracted = [];
-    order.forEach(function(o) {
-        var ruleContext = rulesContext[o.i];
-        extracted.forEach(function(elt) {
-            var idx = ruleContext.possibles.indexOf(elt);
-            if (idx>=0) {
-                ruleContext.possibles.splice(idx,1);
-            }
-        });
-        for(var j=0;j<ruleContext.count;++j) {
-            if(ruleContext.possibles.length == 0) {
-                throw new Error('Impossible to extract enough matches for rule '+o.i);
-            }
-            var idx = Math.floor(Math.random()*ruleContext.possibles.length);
-            var elt = ruleContext.possibles[idx];
-            extracted.push(elt);
-            ruleContext.possibles.splice(idx,1);
-        }
+  var extracted = [];
+  order.forEach(function(o) {
+    var ruleContext = rulesContext[o.i];
+    extracted.forEach(function(elt) {
+      var idx = ruleContext.possibles.indexOf(elt);
+      if (idx >= 0) {
+        ruleContext.possibles.splice(idx, 1);
+      }
     });
+    for (var j = 0; j < ruleContext.count; ++j) {
+      if (ruleContext.possibles.length == 0) {
+        throw new Error('Impossible to extract enough matches for rule ' + o.i);
+      }
+      var idx = Math.floor(Math.random() * ruleContext.possibles.length);
+      var elt = ruleContext.possibles[idx];
+      extracted.push(elt);
+      ruleContext.possibles.splice(idx, 1);
+    }
+  });
 
-    return extracted;
+  return extracted;
 }
 
 /**
@@ -101,10 +106,10 @@ function extract(data, rules) {
  * @return array        randomly extracted members of data parameter
  */
 function extractMembers(data, rules) {
-    rulesContext = {};
-    order = [];
-    prepare(data, rules);
-    return extract(data, rules);
+  rulesContext = {};
+  order = [];
+  prepare(data, rules);
+  return extract(data, rules);
 }
 
 export default extractMembers;
