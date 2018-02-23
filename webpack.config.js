@@ -1,9 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
-var libraryName = 'notSoRandom';
-var outputFile = libraryName + '.js';
+const webpack = require('webpack');
+const path = require('path');
+const libraryName = 'notSoRandom';
+const outputFile = libraryName + '.js';
 
-var config = {
+const config = {
+    context: path.resolve(__dirname + '/src'),
     entry: __dirname + '/src/index.js',
     output: {
         path: __dirname + '/lib',
@@ -13,16 +14,18 @@ var config = {
         umdNamedDefine: true
     },
     module: {
-        loaders: [
-            { test: /(\.js)$/, loader: 'babel', exclude: /(node_modules)/ }
+        rules: [
+            { test: /(\.js)$/, use: 'babel-loader', exclude: /(node_modules)/ }
         ]
     },
     resolve: {
-        root: path.resolve('./src'),
-        extensions: ['', '.js']
+        extensions: ['.js']
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({ minimize: true })
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        sourceMap: true
+      })
     ]
 };
 
