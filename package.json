@@ -5,8 +5,8 @@
   "main": "lib/notSoRandom.js",
   "scripts": {
     "test": "jest",
-    "cover": "jest --cover",
-    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
+    "cover": "jest --coverage",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "build": "webpack",
     "prettify": "prettier --single-quote --trailing-comma es5 --write src/index.js"
   },
