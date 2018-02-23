@@ -42,6 +42,8 @@ function prepare(data, rules) {
         );
       }
     }
+  }
+  for (var i = 0; i < rules.length; ++i) {
     rulesContext[i].trustScore =
       rulesContext[i].exclusives.length - rulesContext[i].count;
     if (
