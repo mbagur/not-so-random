@@ -1,5 +1,9 @@
 # not-so-random
+
 Lib allowing to use rules to configuration the extraction of random members of an array.
+
+[![Build Status](https://travis-ci.org/mbagur/not-so-random.svg?branch=master)](https://travis-ci.org/mbagur/not-so-random)
+[![Coverage Status](https://coveralls.io/repos/github/mbagur/not-so-random/badge.svg?branch=master)](https://coveralls.io/github/mbagur/not-so-random?branch=master)
 
 ## Usage example
 
