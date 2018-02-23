@@ -128,5 +128,18 @@ describe("not-so-random", function() {
             };
             expect(f).toThrow(Error);
         });
+
+        it("should return 4 entries", function() {
+            // This test aims at testing the internal ordering of rules
+            // the last rule is more specific than the second, so rules should be reordered
+            var rules = [
+                { count: 2, test: e => e.score > 7 },
+                { count: 1, test: e => e.score >= 0 },
+                { count: 1, test: e => e.score < 3}
+            ];
+            var extracted = notSoRandom(data, rules);
+            expect(extracted).toBeInstanceOf(Array);
+            expect(extracted).toHaveLength(4);
+        });
     });
 });
